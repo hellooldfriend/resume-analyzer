@@ -36,9 +36,6 @@ const serviceData: Record<ServiceType, ServiceData> = {
 export const analyzeCVRequest = async ({ type, text }: AnalyzeCVRequestData): Promise<AnalyzeCVRequestResponse> => {
   const service = serviceData[type];
 
-  console.log('xxx', service, type);
-
-
   if (!service) {
     console.error('Не удалось определить сервис');
     return Promise.reject();
