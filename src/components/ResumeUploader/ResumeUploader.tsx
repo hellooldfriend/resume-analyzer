@@ -51,12 +51,10 @@ const ResumeUploader = ({
   };
 
   const analyzeResume = async (text: string) => {
-    const response = analyzeCVRequest({
-      url: 'https://api.x.ai/v1/chat/completions',
-      model: 'grok-beta',
+    const response = await analyzeCVRequest({
+      type: 'openai',
       text,
     })
-    console.log('>>>>', response);
 
     return response.data.choices[0].message.content;
   };
