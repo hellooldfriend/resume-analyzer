@@ -1,7 +1,7 @@
 import React from 'react';
-import axios from 'axios';
 import mammoth from 'mammoth';
 import { extractTextFromPDF } from '../../shared/utils';
+import { analyzeCVRequest } from '../../requests';
 
 type Props = {
   onResumeTextChange: (value: string | null) => void;
@@ -50,20 +50,14 @@ const ResumeUploader = ({
     }
   };
 
-  const analyzeResume = async (text: string): Promise<string> => {
-    const API_KEY = import.meta.env.VITE_X_AI_TOKEN_KEY;
+  const analyzeResume = async (text: string) => {
+    const response = analyzeCVRequest({
+      url: 'https://api.x.ai/v1/chat/completions',
+      model: 'grok-beta',
+      text,
+    })
+    console.log('>>>>', response);
 
-    const response = await axios.post(
-      'https://api.x.ai/v1/chat/completions',
-      {
-        model: 'grok-beta', // Или актуальная модель, проверь docs
-        messages: [
-          { role: 'system', content: 'Ты анализатор резюме. Выдели ключевые навыки, опыт, слабые места и дай рекомендации.' },
-          { role: 'user', content: `Анализируй это резюме: ${text.substring(0, 4000)}` } // Ограничь длину, если текст длинный
-        ],
-      },
-      { headers: { 'Authorization': `Bearer ${API_KEY}` } }
-    );
     return response.data.choices[0].message.content;
   };
 
