@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import mammoth from 'mammoth';
+import { extractTextFromPDF } from '../../shared/utils';
 
 type Props = {
   onResumeTextChange: (value: string | null) => void;
@@ -29,12 +30,8 @@ const ResumeUploader = ({
     try {
       let text = '';
       if (file.type === 'application/pdf') {
-        console.log('получил PDF')
-        // const arrayBuffer = await file.arrayBuffer();
-        // const pdfData = await PDFParse(arrayBuffer);
-        // text = pdfData.text;
+        text = await extractTextFromPDF(file)
       } else if (file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || file.name.endsWith('.doc')) {
-        console.log('получил DOC')
 
         const arrayBuffer = await file.arrayBuffer();
         const result = await mammoth.extractRawText({ arrayBuffer });
@@ -55,7 +52,6 @@ const ResumeUploader = ({
 
   const analyzeResume = async (text: string): Promise<string> => {
     const API_KEY = import.meta.env.VITE_X_AI_TOKEN_KEY;
-    console.log('>>>>', API_KEY);
 
     const response = await axios.post(
       'https://api.x.ai/v1/chat/completions',
