@@ -1,8 +1,7 @@
 import axios from 'axios';
-import type { XAIv1ChatCompletion } from '../shared/types';
+import type { ServiceType, XAIv1ChatCompletion } from '../shared/types';
+import { serviceData } from '../shared/models';
 
-type ServiceType = 'xai' | 'openai';
-type ServiceModel = 'grok-beta' | 'gpt-4.1-mini';
 
 type AnalyzeCVRequestData = {
   type: ServiceType;
@@ -13,24 +12,7 @@ type AnalyzeCVRequestResponse = {
   data: XAIv1ChatCompletion;
 }
 
-type ServiceData = {
-  url: string;
-  model: ServiceModel;
-  token: string;
-}
 
-const serviceData: Record<ServiceType, ServiceData> = {
-  xai: {
-    url: 'https://api.x.ai/v1/chat/completions',
-    model: 'grok-beta',
-    token: import.meta.env.VITE_X_AI_TOKEN_KEY,
-  },
-  openai: {
-    url: 'https://api.openai.com/v1/chat/completions',
-    model: 'gpt-4.1-mini',
-    token: import.meta.env.VITE_OPEN_AI_TOKEN_KEY,
-  },
-}
 
 
 export const analyzeCVRequest = async ({ type, text }: AnalyzeCVRequestData): Promise<AnalyzeCVRequestResponse> => {
