@@ -52,7 +52,7 @@ const ResumeUploader = ({
 
   const analyzeResume = async (text: string) => {
     const response = await analyzeCVRequest({
-      type: 'openai',
+      type: 'gigachat',
       text,
     })
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import type { ServiceType, XAIv1ChatCompletion } from '../shared/types';
-import { serviceData } from '../shared/models';
+import { context, serviceData } from '../shared/models';
 
 
 type AnalyzeCVRequestData = {
@@ -11,8 +11,6 @@ type AnalyzeCVRequestData = {
 type AnalyzeCVRequestResponse = {
   data: XAIv1ChatCompletion;
 }
-
-
 
 
 export const analyzeCVRequest = async ({ type, text }: AnalyzeCVRequestData): Promise<AnalyzeCVRequestResponse> => {
@@ -28,7 +26,7 @@ export const analyzeCVRequest = async ({ type, text }: AnalyzeCVRequestData): Pr
     {
       model: service.model,
       messages: [
-        { role: 'system', content: 'Ты анализатор резюме. Выдели ключевые навыки, опыт, слабые места и дай рекомендации.' },
+        { role: 'system', content: context },
         { role: 'user', content: `Анализируй это резюме: ${text.substring(0, 4000)}` } // Ограничь длину, если текст длинный
       ],
     },
