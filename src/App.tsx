@@ -5,9 +5,9 @@ import ResumeUploader from './components/ResumeUploader/ResumeUploader'
 
 function App() {
 
-  const [resumeText, setResumeText] = React.useState<string | null>('');
-  const [analysisText, setAnalysisText] = React.useState<string | null>('');
-  const [error, setError] = React.useState<string | null>('');
+  const [_, setResumeText] = React.useState<string | null>(null);
+  const [analysisText, setAnalysisText] = React.useState<string | null>(null);
+  const [error, setError] = React.useState<string | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
 
 
