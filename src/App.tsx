@@ -13,7 +13,8 @@ function App() {
 
   return (
     <>
-      <h1>Анализатор резюме</h1>
+      <h1>Resume/CV AI Analysis | Free Resume Review</h1>
+      <p>Analyse your resume/CV and find ways to improve it using AI</p>
       <ResumeUploader
         onResumeTextChange={setResumeText}
         onLoadingChange={setIsLoading}
