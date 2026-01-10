@@ -22,7 +22,7 @@ export const analyzeCVRequest = async ({ type, text }: AnalyzeCVRequestData): Pr
   }
 
   return await axios.post(
-    service.url,
+    'http://localhost:3001/api/analyze',
     {
       model: service.model,
       messages: [
